@@ -37,6 +37,7 @@ public class PedalListFragment extends ListFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, src);
 
         setListAdapter(adapter);
+
     }
 
     @Override

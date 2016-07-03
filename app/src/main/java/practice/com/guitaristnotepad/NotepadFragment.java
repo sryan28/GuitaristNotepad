@@ -1,12 +1,13 @@
 package practice.com.guitaristnotepad;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,48 +17,33 @@ public class NotepadFragment extends ListFragment {
 
     ArrayList<NotepadEntry> notes;
     NotepadAdapter adapter;
-    ListView listView;
+    ImageView notepadSymbol;
+    ImageView recordSymbol;
+
+    boolean isVisible = false;
+    boolean isFirstLoad = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d("tag", "here");
-//        super.onCreate(savedInstanceState);
+        notepadSymbol = (ImageView) getActivity().findViewById(R.id.notepad);
+        recordSymbol = (ImageView) getActivity().findViewById(R.id.home);
 
-
-
-//        View root = inflater.inflate(R.layout.notepad_fragment, container, false);
-//
-//        listView = (ListView) root.findViewById(R.id.notepadList);
-//
-//        NotepadEntry entry = new NotepadEntry("Nu metal", "Metal", "1/12/47");
-//        NotepadEntry entry2 = new NotepadEntry("Nu metal", "Metal", "1/12/47");
-//        NotepadEntry entry3 = new NotepadEntry("Nu metal", "Metal", "1/12/47");
-//        NotepadEntry entry4 = new NotepadEntry("Nu metal", "Metal", "1/12/47");
-//
-//        entries.add(entry);
-//        entries.add(entry2);
-//        entries.add(entry3);
-//        entries.add(entry4);
-//
-//        NotepadAdapter adapter = new NotepadAdapter(getActivity(), entries);
-//
-//        setListAdapter(adapter);
-
+        if(isVisible) {
+            notepadSymbol.setImageResource(R.drawable.ic_action_name12);
+            recordSymbol.setImageResource(R.drawable.ic_action_name);
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.notepad_fragment, container, false);
-
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         notes = new ArrayList<>();
-//
-//
+
         NotepadEntry entry = new NotepadEntry("Nu metal", "Metal", "1/12/47");
         NotepadEntry entry2 = new NotepadEntry("Nu metal2", "Metal", "1/12/47");
         NotepadEntry entry3 = new NotepadEntry("Nu metal3", "Metal", "1/12/47");
@@ -67,18 +53,36 @@ public class NotepadFragment extends ListFragment {
         notes.add(entry2);
         notes.add(entry3);
         notes.add(entry4);
-//
+
         adapter = new NotepadAdapter(getActivity(), notes);
         setListAdapter(adapter);
-//
-//        listView.setAdapter(adapter);
-//        setRetainInstance(true);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        Intent i = new Intent(getActivity(), SoundManipulationActivity.class);
+        startActivity(i);
+
         Toast.makeText(getActivity(), "hello", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && isFirstLoad) {
+            isVisible = true;
+            isFirstLoad = !isFirstLoad;
+        } else if(isVisibleToUser && !isFirstLoad) {
+            setNavigationImages();
+        } else {
+            isVisible = false;
+        }
+    }
+
+    private  void setNavigationImages() {
+        notepadSymbol.setImageResource(R.drawable.ic_action_name12);
+        recordSymbol.setImageResource(R.drawable.ic_action_name);
     }
 
 }

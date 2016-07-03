@@ -20,9 +20,15 @@ public class RecordFragment extends Fragment {
 
     ImageView recordButton;
     ImageView playButton;
+    ImageView recordSymbol;
+    ImageView notepadSymbol;
 
     boolean startRecording = true;
     boolean startPlaying = false;
+
+    boolean isVisible = false;
+
+    boolean isFirstLoad = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +65,14 @@ public class RecordFragment extends Fragment {
 
             }
         });
+
+        recordSymbol = (ImageView) getActivity().findViewById(R.id.home);
+        notepadSymbol = (ImageView) getActivity().findViewById(R.id.notepad);
+
+        if(isVisible) {
+            recordSymbol.setImageResource(R.drawable.ic_action_name11);
+            notepadSymbol.setImageResource(R.drawable.ic_action_name2);
+        }
 
         return rootView;
     }
@@ -108,4 +122,23 @@ public class RecordFragment extends Fragment {
         player = null;
     }
 
+    //TODO: Bug where it doesnt highlight first time around
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && isFirstLoad) {
+            isVisible = true;
+            isFirstLoad = !isFirstLoad;
+        } else if(isVisibleToUser && !isFirstLoad) {
+            setNavigationImages();
+        } else {
+            isVisible = false;
+        }
+    }
+
+    //TODO: Possibly asynchTask
+    private void setNavigationImages() {
+        recordSymbol.setImageResource(R.drawable.ic_action_name11);
+        notepadSymbol.setImageResource(R.drawable.ic_action_name2);
+    }
 }

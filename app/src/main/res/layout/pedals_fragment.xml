@@ -6,14 +6,15 @@
     <RelativeLayout
         android:id="@+id/pedal_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#000000">
 
         <ImageView
             android:id="@+id/pedal_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
-            android:paddingTop="30dp"
+            android:paddingTop="10dp"
             android:src="@drawable/ic_action_name2"/>
 
         <ImageView
@@ -37,7 +38,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="3"
+        android:background="#000000">
         <ScrollView
             android:id="@+id/pedalinfo_scroll_view"
             android:layout_width="match_parent"
@@ -53,7 +55,7 @@
                     android:id="@+id/pedal_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"/>
+                    android:textColor="#ffffff"/>
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
@@ -62,7 +64,8 @@
         android:id="@+id/controls"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#000000">
 
         <ImageView
             android:id="@+id/prev_button"
@@ -72,7 +75,7 @@
             android:paddingBottom="30dp"
             android:paddingLeft="30dp"
             android:layout_alignParentStart="true"
-            android:src="@drawable/ic_action_name"/>
+            android:src="@drawable/prev_pedal"/>
 
         <ImageView
             android:id="@+id/apply_filter"
@@ -81,7 +84,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:paddingBottom="30dp"
-            android:src="@drawable/ic_action_name2"
+            android:src="@drawable/apply_filter"
             />
 
         <ImageView
@@ -92,7 +95,7 @@
             android:layout_alignParentEnd="true"
             android:paddingBottom="30dp"
             android:paddingRight="30dp"
-            android:src="@drawable/ic_action_name3"/>
+            android:src="@drawable/next_pedal"/>
 
     </RelativeLayout>
 

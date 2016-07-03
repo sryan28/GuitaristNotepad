@@ -74,6 +74,7 @@ public class PedalsFragment extends Fragment {
         });
 
         pedalDescription = (TextView) rootView.findViewById(R.id.pedal_info);
+        pedalImage = (ImageView) rootView.findViewById(R.id.pedal_image);
 
         currentPedal = (TextView) rootView.findViewById(R.id.pedal_name);
 
@@ -108,7 +109,7 @@ public class PedalsFragment extends Fragment {
             currentPedal.setText(pedalName);
 
             //decode from drawable
-//            pedalImage.setImageResource(R.drawable.distortion_pedal);
+            pedalImage.setImageResource(R.drawable.d_pedal);
         }
     }
 
