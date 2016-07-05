@@ -11,10 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-/**
- * Created by user on 6/30/2016.
- */
-
 public class PedalListFragment extends ListFragment {
 
     String[] src = {"Distortion", "Delay/Reverb", "Tempo", "Other", "Other2"};
@@ -35,7 +31,6 @@ public class PedalListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, src);
-
         setListAdapter(adapter);
 
     }
@@ -43,15 +38,13 @@ public class PedalListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-//        Toast.makeText(getActivity(), src[position], Toast.LENGTH_LONG).show();
         pedalSelected.sendPedalSelection(src[position]);
-
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         pedalSelected = (PedalSelected) context;
     }
+
 }

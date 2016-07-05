@@ -18,17 +18,17 @@ public class RecordFragment extends Fragment {
     private MediaPlayer player;
     private String fileName;
 
-    ImageView recordButton;
-    ImageView playButton;
-    ImageView recordSymbol;
-    ImageView notepadSymbol;
+    private ImageView recordButton;
+    private ImageView playButton;
+    private ImageView recordSymbol;
+    private ImageView notepadSymbol;
 
-    boolean startRecording = true;
-    boolean startPlaying = false;
+    private boolean startRecording = true;
+    private boolean startPlaying = false;
 
-    boolean isVisible = false;
+    private boolean isVisible = false;
 
-    boolean isFirstLoad = true;
+    private boolean isFirstLoad = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

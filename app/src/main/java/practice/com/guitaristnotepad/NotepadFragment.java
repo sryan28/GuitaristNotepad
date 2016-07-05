@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 public class NotepadFragment extends ListFragment {
 
-    ArrayList<NotepadEntry> notes;
-    NotepadAdapter adapter;
-    ImageView notepadSymbol;
-    ImageView recordSymbol;
+    private ArrayList<NotepadEntry> notes;
+    private NotepadAdapter adapter;
+    private ImageView notepadSymbol;
+    private ImageView recordSymbol;
 
-    boolean isVisible = false;
-    boolean isFirstLoad = true;
+    private boolean isVisible = false;
+    private boolean isFirstLoad = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,8 +63,6 @@ public class NotepadFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(getActivity(), SoundManipulationActivity.class);
         startActivity(i);
-
-        Toast.makeText(getActivity(), "hello", Toast.LENGTH_LONG).show();
     }
 
     @Override

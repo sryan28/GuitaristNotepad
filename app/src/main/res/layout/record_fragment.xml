@@ -11,6 +11,13 @@
         android:background="@drawable/rwave">
     </RelativeLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#ff0000">
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/controls"
         android:layout_width="match_parent"

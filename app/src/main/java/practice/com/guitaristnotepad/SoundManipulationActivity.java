@@ -12,7 +12,8 @@ import android.widget.ImageView;
 public class SoundManipulationActivity extends FragmentActivity implements PedalListFragment.PedalSelected,
 PedalsFragment.SendPedal {
 
-    ImageView backButton;
+    private ImageView backButton;
+    SoundManipulationFragment smf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,6 @@ PedalsFragment.SendPedal {
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
         backButton = (ImageView) mainToolbar.findViewById(R.id.back_image);
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,16 +31,12 @@ PedalsFragment.SendPedal {
         });
 
 
-        SoundManipulationFragment smf = new SoundManipulationFragment();
+        smf = new SoundManipulationFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fram1, smf).commit();
-
-//        PedalListFragment plf = new PedalListFragment();
-//        getSupportFragmentManager().beginTransaction().add(R.id.fram2, plf).commit();
     }
 
     @Override
     public void sendPedalSelection(String selection) {
-
         Bundle b = new Bundle();
         b.putString("pedalCategory", selection);
         PedalsFragment pf = new PedalsFragment();
@@ -55,8 +51,7 @@ PedalsFragment.SendPedal {
     @Override
     public void sendPedal(String pedal) {
         //do something with pedal selection here
-
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fram1, );
+        getSupportFragmentManager().beginTransaction().replace(R.id.fram1, smf).commit();
     }
 
 }

@@ -1,7 +1,6 @@
 package practice.com.guitaristnotepad;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,18 +16,17 @@ import java.util.List;
 
 public class PedalsFragment extends Fragment {
 
-    ImageView pedalImage;
-    ImageView closeImage;
-    ImageView prevPedal;
-    ImageView nextPedal;
-    ImageView applyFilter;
+    private ImageView pedalImage;
+    private ImageView prevPedal;
+    private ImageView nextPedal;
+    private ImageView applyFilter;
 
-    TextView pedalDescription;
-    TextView currentPedal;
+    private TextView pedalDescription;
+    private TextView currentPedal;
 
-    ArrayList<Pedal> pedalsList;
+    private ArrayList<Pedal> pedalsList;
 
-    String pedalCategory;
+    private String pedalCategory;
 
     SendPedal send;
 
@@ -54,14 +52,14 @@ public class PedalsFragment extends Fragment {
         prevPedal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDisplay(currentpos--);
+                updateDisplay("prev");
             }
         });
         nextPedal = (ImageView) rootView.findViewById(R.id.next_button);
         nextPedal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDisplay(currentpos++);
+                updateDisplay("next");
             }
         });
         applyFilter = (ImageView) rootView.findViewById(R.id.apply_filter);
@@ -93,7 +91,29 @@ public class PedalsFragment extends Fragment {
         @Override
         protected List<Pedal> doInBackground(String... params) {
             pedalsList = new ArrayList<>();
-            DBHandler dbHandler = new DBHandler(getContext(), null, null, 2);
+            DBHandler dbHandler = new DBHandler(getContext(), null, null, 1);
+//            dbHandler.addPedal(new Pedal("Fuzz", R.drawable.pedal, "A killer sound" +
+//                    "with some cool fuzz effects is perfect for that gain sound sound" +
+//                    "that all guitarist search for", "Distortion"));
+//
+//            dbHandler.addPedal(new Pedal("Reverb", R.drawable.d_pedal, "A killer sound" +
+//                    "with some cool fuzz effects is perfect for that gain sound sound" +
+//                    "that all guitarist search for", "Delay/Reverb"));
+//
+//            dbHandler.addPedal(new Pedal("Delay", R.drawable.distortion_pedal, "A killer sound" +
+//                    "with some cool fuzz effects is perfect for that gain sound sound" +
+//                    "that all guitarist search for", "Delay/Reverb"));
+//
+//            dbHandler.addPedal(new Pedal("Tube Screamer", R.drawable.ic_action_name, "A killer sound" +
+//                    "that can only be found on the tube screamer", "Distortion"));
+//
+//            dbHandler.addPedal(new Pedal("Echo Delay", R.drawable.ic_action_name2, "A killer sound" +
+//                    "with some cool fuzz effects is perfect for that gain sound sound" +
+//                    "that all guitarist search for", "Delay/Reverb"));
+//
+//            dbHandler.addPedal(new Pedal("Overdrive", R.drawable.ic_action_name3, "A killer sound" +
+//                    "with some cool fuzz effects is perfect for that gain sound sound" +
+//                    "that all guitarist search for", "Distortion"));
             pedalsList = dbHandler.getAllPedals(params[0]);
 
             return pedalsList;
@@ -102,29 +122,30 @@ public class PedalsFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Pedal> pedals) {
             super.onPostExecute(pedals);
-            pedalDescription.setText(pedals.get(0).getDescription() + pedals.get(0).getDescription()
-                    +pedals.get(0).getDescription());
+            pedalDescription.setText(pedals.get(currentpos).getDescription());
 
-            String pedalName = pedals.get(0).getName();
+            String pedalName = pedals.get(currentpos).getName();
             currentPedal.setText(pedalName);
 
-            //decode from drawable
-            pedalImage.setImageResource(R.drawable.d_pedal);
+            pedalImage.setImageResource(pedals.get(currentpos).getImageId());
         }
     }
 
-    public void updateDisplay(int pos) {
-        if(pos < 0) {
-            currentpos = 0;
-            return;
-        }  else if(pos > pedalsList.size() - 1) {
-            currentpos = pedalsList.size();
-            return;
+    public void updateDisplay(String direction) {
+        if(direction.equals("next")) {
+            currentpos++;
         } else {
-            pedalDescription.setText(pedalsList.get(pos).getDescription());
-//            pedalImage.setImageResource(pedalsList.get(pos).getImageId());
-            currentPedal.setText(pedalsList.get(pos).getName());
+            currentpos--;
         }
+        if(currentpos < 0) {
+            currentpos = pedalsList.size() - 1;
+        } else if(currentpos >= pedalsList.size()) {
+            currentpos = 0;
+        }
+
+        pedalDescription.setText(pedalsList.get(currentpos).getDescription());
+        pedalImage.setImageResource(pedalsList.get(currentpos).getImageId());
+        currentPedal.setText(pedalsList.get(currentpos).getName());
     }
 
     @Override
